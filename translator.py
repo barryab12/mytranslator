@@ -15,8 +15,10 @@ def translator(file):
 
 
 if __name__ == "__main__":
-    file = int(sys.argv[1])
-    output = int(sys.argv[2])
+    file = str(sys.argv[1])
+    output = str(sys.argv[2])
+    if not file or not output:
+        print('Ajouter les parametres')
     if output == "v":
         translator(file)
     else:
