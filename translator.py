@@ -1,8 +1,11 @@
 from gtts import gTTS
 import os
-language = 'en'
+language = 'fr'
 
-text = "Global warming is the long-term rise in the average temperature of the Earth’s climate system"
-speech = gTTS(text=text, lang=language, slow=False)
+fichier = open("text.txt", "r")
+contenu = fichier.read()
+print(contenu)
+speech = gTTS(text=contenu, lang=language, slow=False)
 speech.save("text.mp3")
-os.system("start text.mp3")
+print("Fichier audio enregisté avec succès")
+fichier.close()
