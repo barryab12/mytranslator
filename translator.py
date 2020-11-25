@@ -1,10 +1,9 @@
 from gtts import gTTS
-import os
-import sys
-language = 'fr'
+import sys, getopt, os
 
 
-def translator(file):
+def translatorTTS(file):
+    language = 'fr'
     fichier = open(file, "r")
     contenu = fichier.read()
     print(contenu)
@@ -14,12 +13,29 @@ def translator(file):
     fichier.close()
 
 
-if __name__ == "__main__":
-    file = str(sys.argv[1])
-    output = str(sys.argv[2])
-    if not file or not output:
-        print('Ajouter les parametres')
-    if output == "v":
-        translator(file)
+def main(argv):
+    inputfile = ''
+    outputtype = ''
+    try:
+        opts, args = getopt.getopt(argv, "hi:o:", ["ifile=", "otype="])
+    except getopt.GetoptError:
+        print('translator.py -i <inputfile> -o <outputtype>')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print('translator.py -i <inputfile> -o <outputtype>')
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-o", "--otype"):
+            outputtype = arg
+    if outputtype == "v":
+        translatorTTS(inputfile)
     else:
-        print("Ajouter le second paramètre")
+        print(
+            "Aucun type de sortie choisi ou mauvais format choisi. Les choix sont v ou t. ex: '-o v'"
+        )
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
